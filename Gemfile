@@ -3,9 +3,12 @@ source :rubygems
 gemspec
 
 gem 'country_select'
-gem 'railties', '~> 3.2.0'
-gem 'activemodel', '~> 3.2.0'
-gem 'actionpack', '~> 3.2.0'
+git 'git://github.com/rails/rails.git' do
+  gem 'railties'
+  gem 'activemodel'
+  gem 'actionpack'
+end
+gem 'journey', :git => 'git://github.com/rails/journey.git'
 gem 'rake'
 gem 'rdoc'
 gem 'mocha'
