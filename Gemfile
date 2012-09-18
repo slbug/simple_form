@@ -2,7 +2,7 @@ source :rubygems
 
 gemspec
 
-gem 'country_select'
+gem 'country_select', :git => 'git://github.com/slbug/country_select.git'
 git 'git://github.com/rails/rails.git' do
   gem 'railties'
   gem 'activemodel'

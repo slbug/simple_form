@@ -13,6 +13,9 @@ require 'action_view/template'
 require 'active_support/core_ext/module/deprecation'
 require 'action_view/test_case'
 
+# Rails 4 not requires core_ext by default
+require 'active_support/core_ext'
+
 module Rails
   def self.env
     ActiveSupport::StringInquirer.new("test")

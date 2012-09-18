@@ -2,6 +2,10 @@
 require 'test_helper'
 
 class ButtonTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   def with_button_for(object, *args)
     with_concat_form_for(object) do |f|
       f.button(*args)

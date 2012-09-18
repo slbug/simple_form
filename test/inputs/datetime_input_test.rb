@@ -3,6 +3,10 @@ require 'test_helper'
 
 # Tests for all different kinds of inputs.
 class DateTimeInputTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   # DateTime input
   test 'input should generate a datetime select by default for datetime attributes' do
     with_input_for @user, :created_at, :datetime

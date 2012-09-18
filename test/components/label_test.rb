@@ -3,6 +3,10 @@ require 'test_helper'
 
 # Isolated tests for label without triggering f.label.
 class IsolatedLabelTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   setup do
     SimpleForm::Inputs::Base.reset_i18n_cache :translate_required_html
   end

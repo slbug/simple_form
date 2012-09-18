@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class WrapperTest < ActionView::TestCase
+
+  def default_url_options
+    {}
+  end
+
   test 'wrapper should not have error class for attribute without errors' do
     with_form_for @user, :active
     assert_no_select 'div.field_with_errors'

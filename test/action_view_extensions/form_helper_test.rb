@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class FormHelperTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
 
   test 'SimpleForm for yields an instance of FormBuilder' do
     simple_form_for :user do |f|

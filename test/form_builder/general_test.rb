@@ -2,6 +2,10 @@
 require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   def with_custom_form_for(object, *args, &block)
     with_concat_custom_form_for(object) do |f|
       f.input(*args, &block)

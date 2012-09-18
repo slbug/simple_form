@@ -317,10 +317,10 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'input radio with nested style accepts giving extra wrapper classes' do
-    swap SimpleForm, :boolean_style => :nested do
+    raise (swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :radio_buttons, :item_wrapper_class => "inline"
 
-      assert_select 'label.radio.inline > input'
-    end
+      #assert_select 'label.radio.inline > input'
+    end).inspect
   end
 end

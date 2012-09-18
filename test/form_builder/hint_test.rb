@@ -2,6 +2,10 @@ require 'test_helper'
 
 # Tests for f.hint
 class HintTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   def with_hint_for(object, *args)
     with_concat_form_for(object) do |f|
       f.hint(*args)

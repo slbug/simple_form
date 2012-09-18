@@ -2,6 +2,10 @@ require 'test_helper'
 
 # Tests for f.error and f.full_error
 class ErrorTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   def with_error_for(object, *args)
     with_concat_form_for(object) do |f|
       f.error(*args)

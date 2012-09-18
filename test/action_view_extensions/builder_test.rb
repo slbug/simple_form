@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class BuilderTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   def with_custom_form_for(object, *args, &block)
     with_concat_custom_form_for(object) do |f|
       assert f.instance_of?(CustomFormBuilder)

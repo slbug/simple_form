@@ -2,6 +2,10 @@
 require 'test_helper'
 
 class InputTest < ActionView::TestCase
+  def default_url_options
+    {}
+  end
+
   test 'input should generate css class based on default input type' do
     with_input_for @user, :name, :string
     assert_select 'input.string'
