@@ -336,62 +336,9 @@ module ActionView::Helpers
       checkbox = tag("input", options)
       hidden + checkbox
     end
-
-    private
-
-      def add_default_name_and_id_for_value(tag_value, options)
-        unless tag_value.nil?
-          pretty_tag_value = tag_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase
-          specified_id = options["id"]
-          add_default_name_and_id(options)
-          options["id"] += "_#{pretty_tag_value}" if specified_id.blank? && options["id"].present?
-        else
-          add_default_name_and_id(options)
-        end
-      end
-
-      def add_default_name_and_id(options)
-        if options.has_key?("index")
-          options["name"] ||= tag_name_with_index(options["index"])
-          options["id"] = options.fetch("id"){ tag_id_with_index(options["index"]) }
-          options.delete("index")
-        elsif defined?(@auto_index)
-          options["name"] ||= tag_name_with_index(@auto_index)
-          options["id"] = options.fetch("id"){ tag_id_with_index(@auto_index) }
-        else
-          options["name"] ||= tag_name + (options['multiple'] ? '[]' : '')
-          options["id"] = options.fetch("id"){ tag_id }
-        end
-        options["id"] = [options.delete('namespace'), options["id"]].compact.join("_").presence
-      end
-
-      def tag_name
-        "#{@object_name}[#{sanitized_method_name}]"
-      end
-
-      def tag_name_with_index(index)
-        "#{@object_name}[#{index}][#{sanitized_method_name}]"
-      end
-
-      def tag_id
-        "#{sanitized_object_name}_#{sanitized_method_name}"
-      end
-
-      def tag_id_with_index(index)
-        "#{sanitized_object_name}_#{index}_#{sanitized_method_name}"
-      end
-
-      def sanitized_object_name
-        @sanitized_object_name ||= @object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
-      end
-
-      def sanitized_method_name
-        @sanitized_method_name ||= @method_name.sub(/\?$/,"")
-      end
-
   end
 
-  if defined?(ActionView::Helpers::InstanceTag) && ActionView::Helpers::InstanceTag.instance_methods.include?(:value)
+  if defined?(ActionView::Helpers::InstanceTag) && ActionView::Helpers::InstanceTag.instance_method(:initialize).arity != 0
     class InstanceTag
       include ToCheckboxTag
     end
@@ -401,6 +348,59 @@ module ActionView::Helpers
         module Tags
           class Base
             include ToCheckboxTag
+
+            private
+
+              def add_default_name_and_id_for_value(tag_value, options)
+                unless tag_value.nil?
+                  pretty_tag_value = tag_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase
+                  specified_id = options["id"]
+                  add_default_name_and_id(options)
+                  options["id"] += "_#{pretty_tag_value}" if specified_id.blank? && options["id"].present?
+                else
+                  add_default_name_and_id(options)
+                end
+              end
+
+              def add_default_name_and_id(options)
+                if options.has_key?("index")
+                  options["name"] ||= tag_name_with_index(options["index"])
+                  options["id"] = options.fetch("id"){ tag_id_with_index(options["index"]) }
+                  options.delete("index")
+                elsif defined?(@auto_index)
+                  options["name"] ||= tag_name_with_index(@auto_index)
+                  options["id"] = options.fetch("id"){ tag_id_with_index(@auto_index) }
+                else
+                  options["name"] ||= tag_name + (options['multiple'] ? '[]' : '')
+                  options["id"] = options.fetch("id"){ tag_id }
+                end
+                options["id"] = [options.delete('namespace'), options["id"]].compact.join("_").presence
+              end
+
+              def tag_name
+                "#{@object_name}[#{sanitized_method_name}]"
+              end
+
+              def tag_name_with_index(index)
+                "#{@object_name}[#{index}][#{sanitized_method_name}]"
+              end
+
+              def tag_id
+                "#{sanitized_object_name}_#{sanitized_method_name}"
+              end
+
+              def tag_id_with_index(index)
+                "#{sanitized_object_name}_#{index}_#{sanitized_method_name}"
+              end
+
+              def sanitized_object_name
+                @sanitized_object_name ||= @object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
+              end
+
+              def sanitized_method_name
+                @sanitized_method_name ||= @method_name.sub(/\?$/,"")
+              end
+
           end
         end
       end
